@@ -27,7 +27,7 @@ public class Pedido {
 	@Column
 	private LocalDate dataPedido;
 
-	@Column(length = 20, precision = 2)
+	@Column(precision = 20, scale = 2)
 	private BigDecimal total;
 	
 	@OneToMany(mappedBy = "pedido")
