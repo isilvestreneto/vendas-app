@@ -1,10 +1,13 @@
 package io.github.isilvestreneto.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -16,6 +19,9 @@ public class Cliente {
 	@Column(length = 100)
 	private String nome;
 	
+	@OneToMany(mappedBy = "cliente")
+	private Set<Pedido> pedidos;
+	
 	public Cliente() {
 		super();
 	}
@@ -25,6 +31,14 @@ public class Cliente {
 		this.id = id;
 		this.nome = nome;
 	}
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	public Integer getId() {
 		return id;
 	}
