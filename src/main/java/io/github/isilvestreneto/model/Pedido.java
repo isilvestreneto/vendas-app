@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Pedido {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
@@ -39,5 +38,4 @@ public class Pedido {
 	
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itens;
-	
 }
