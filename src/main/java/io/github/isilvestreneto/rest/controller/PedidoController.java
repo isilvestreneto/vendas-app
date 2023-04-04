@@ -1,4 +1,4 @@
-package io.github.isilvestreneto.controller;
+package io.github.isilvestreneto.rest.controller;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.isilvestreneto.model.Pedido;
-import io.github.isilvestreneto.model.PedidoDTO;
+import io.github.isilvestreneto.rest.dto.PedidoDTO;
 import io.github.isilvestreneto.service.PedidoService;
 
 @RestController

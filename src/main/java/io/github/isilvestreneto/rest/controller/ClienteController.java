@@ -1,4 +1,4 @@
-package io.github.isilvestreneto.controller;
+package io.github.isilvestreneto.rest.controller;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;

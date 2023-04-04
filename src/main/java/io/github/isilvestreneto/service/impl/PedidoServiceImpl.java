@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import io.github.isilvestreneto.exception.RegraNegocioException;
 import io.github.isilvestreneto.model.Cliente;
 import io.github.isilvestreneto.model.ItemPedido;
-import io.github.isilvestreneto.model.ItemPedidoDTO;
 import io.github.isilvestreneto.model.Pedido;
-import io.github.isilvestreneto.model.PedidoDTO;
 import io.github.isilvestreneto.model.Produto;
 import io.github.isilvestreneto.repository.ClienteRepository;
 import io.github.isilvestreneto.repository.ItemPedidoRepository;
 import io.github.isilvestreneto.repository.PedidoRepository;
 import io.github.isilvestreneto.repository.ProdutoRepository;
+import io.github.isilvestreneto.rest.dto.ItemPedidoDTO;
+import io.github.isilvestreneto.rest.dto.PedidoDTO;
 import io.github.isilvestreneto.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package io.github.isilvestreneto.model;
+package io.github.isilvestreneto.rest.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
