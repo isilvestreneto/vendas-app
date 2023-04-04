@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.github.isilvestreneto.exception.PedidoNaoEncontradoException;
 import io.github.isilvestreneto.exception.RegraNegocioException;
 import io.github.isilvestreneto.model.Cliente;
 import io.github.isilvestreneto.model.ItemPedido;
@@ -44,9 +45,9 @@ public class PedidoServiceImpl implements PedidoService {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(cliente);
 		pedido.setStatus(StatusPedido.REALIZADO);
-		
+
 		List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
-		
+
 		pedidoRepository.save(pedido);
 		itemPedidoRepository.saveAll(itemsPedido);
 		pedido.setItens(itemsPedido);
@@ -75,6 +76,17 @@ public class PedidoServiceImpl implements PedidoService {
 	@Override
 	public Optional<Pedido> obterPedidoCompleto(Integer id) {
 		return pedidoRepository.findByIdFetchItens(id);
+	}
+
+	@Override
+	@Transactional
+	public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+		pedidoRepository
+			.findById(id)
+			.map(pedido -> {
+				pedido.setStatus(statusPedido);
+				return pedidoRepository.save(pedido);
+			}).orElseThrow(() -> new PedidoNaoEncontradoException());
 	}
 
 }

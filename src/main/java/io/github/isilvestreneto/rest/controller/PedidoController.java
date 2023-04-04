@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import io.github.isilvestreneto.model.ItemPedido;
 import io.github.isilvestreneto.model.Pedido;
+import io.github.isilvestreneto.model.enums.StatusPedido;
+import io.github.isilvestreneto.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.github.isilvestreneto.rest.dto.InformacaoItemPedidoDTO;
 import io.github.isilvestreneto.rest.dto.InformacoesPedidoDTO;
 import io.github.isilvestreneto.rest.dto.PedidoDTO;
@@ -62,6 +65,13 @@ public class PedidoController {
 				.map(item -> InformacaoItemPedidoDTO.builder().descricaoProduto(item.getProduto().getDescricao())
 						.precoUnitario(item.getProduto().getPreco()).quantidade(item.getQuantidade()).build())
 				.collect(Collectors.toList());
+	}
+
+	@PatchMapping("{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	private void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+		String novoStatus = dto.getNovoStatus();
+		pedidoService.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
 	}
 
 }
