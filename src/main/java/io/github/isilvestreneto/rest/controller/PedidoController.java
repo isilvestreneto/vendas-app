@@ -50,7 +50,7 @@ public class PedidoController {
 		return InformacoesPedidoDTO.builder().codigo(pedido.getId())
 				.dataPedido(pedido.getDataPedido().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
 				.cpf(pedido.getCliente().getCpf()).nomeCliente(pedido.getCliente().getNome()).total(pedido.getTotal())
-				.items(converter(pedido.getItens())).build();
+				.status(pedido.getStatus().name()).items(converter(pedido.getItens())).build();
 	}
 
 	private List<InformacaoItemPedidoDTO> converter(List<ItemPedido> itens) {

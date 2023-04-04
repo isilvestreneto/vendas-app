@@ -13,6 +13,7 @@ import io.github.isilvestreneto.model.Cliente;
 import io.github.isilvestreneto.model.ItemPedido;
 import io.github.isilvestreneto.model.Pedido;
 import io.github.isilvestreneto.model.Produto;
+import io.github.isilvestreneto.model.enums.StatusPedido;
 import io.github.isilvestreneto.repository.ClienteRepository;
 import io.github.isilvestreneto.repository.ItemPedidoRepository;
 import io.github.isilvestreneto.repository.PedidoRepository;
@@ -42,6 +43,7 @@ public class PedidoServiceImpl implements PedidoService {
 		pedido.setTotal(dto.getTotal());
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(cliente);
+		pedido.setStatus(StatusPedido.REALIZADO);
 		
 		List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
 		
