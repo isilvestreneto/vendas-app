@@ -8,7 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Produto {
 	
 	@Id
@@ -20,42 +27,4 @@ public class Produto {
 
 	@Column
 	private BigDecimal preco;
-	
-	public Produto() {
-		super();
-	}
-	
-	public Produto(Integer id, String descricao, BigDecimal preco) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.preco = preco;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public BigDecimal getPreco() {
-		return preco;
-	}
-
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
-	
-	
-
 }
