@@ -1,12 +1,15 @@
 package io.github.isilvestreneto.controller;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,20 +34,20 @@ public class ClienteController {
 	@GetMapping("/{id}")
 	public Cliente getClienteById(@PathVariable Integer id) {
 		return clienteRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+				.orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Cliente não encontrado"));
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
+	@ResponseStatus(CREATED)
 	public Cliente save(@RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
 	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
 		clienteRepository.delete(clienteRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado")));
+				.orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Cliente não encontrado")));
 	}
 
 	@PutMapping("/{id}")
@@ -60,7 +63,7 @@ public class ClienteController {
 			}
 
 			return clienteRepository.save(clienteExistente);
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+		}).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Cliente não encontrado"));
 	}
 
 	@GetMapping
