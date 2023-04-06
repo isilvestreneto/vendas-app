@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import io.github.isilvestreneto.exception.SenhaInvalidaException;
 import io.github.isilvestreneto.model.Usuario;
 import io.github.isilvestreneto.repository.UsuarioRepository;
 
@@ -22,6 +23,22 @@ public class UsuarioServiceImpl implements UserDetailsService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Transactional
+	public Usuario salvar(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
+	
+	public UserDetails autenticar(Usuario usuario) {
+		UserDetails usuarioBD = loadUserByUsername(usuario.getUsername());
+		boolean senhasBatem = passwordEncoder.matches(usuario.getSenha(), usuarioBD.getPassword());
+		
+		if(senhasBatem) {
+			return usuarioBD;
+		}
+		
+		throw new SenhaInvalidaException();
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -31,11 +48,6 @@ public class UsuarioServiceImpl implements UserDetailsService {
 		String[] roles = usuario.isAdmin() ? new String[] { "ADMIN", "USER" } : new String[] { "USER" };
 
 		return User.builder().username(usuario.getUsername()).password(usuario.getSenha()).roles(roles).build();
-	}
-
-	@Transactional
-	public Usuario salvar(Usuario usuario) {
-		return usuarioRepository.save(usuario);
 	}
 
 }
